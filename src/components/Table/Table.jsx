@@ -1,4 +1,4 @@
-import { getUser } from 'redux/selectors';
+import { getUsers } from 'redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import Avatar from 'react-avatar';
 import { deleteContact, toggleStatus } from 'redux/userSlice';
@@ -8,13 +8,14 @@ import {
   TableTd,
   ButtonDelete,
   Status,
+  NoResults,
 } from './Table.styled';
 
 export const Table = () => {
-  const array = useSelector(getUser);
+  const arrayUsers = useSelector(getUsers);
   const dispatch = useDispatch();
 
-  return (
+  return arrayUsers.length > 0 ? (
     <TableStyled>
       <thead>
         <tr>
@@ -27,29 +28,29 @@ export const Table = () => {
         </tr>
       </thead>
       <tbody>
-        {array.map((cont, index) => {
+        {arrayUsers.map((user, index) => {
           return (
-            <tr key={cont.id}>
+            <tr key={user.id}>
               <TableTd>{index + 1}</TableTd>
               <TableTd>
-                <Avatar name={cont.name} size={40} round={true} />
+                <Avatar name={user.name} size={40} round={true} />
               </TableTd>
-              <TableTd>{cont.name}</TableTd>
-              <TableTd>{cont.age}</TableTd>
+              <TableTd>{user.name}</TableTd>
+              <TableTd>{user.age}</TableTd>
               <TableTd>
                 <Status
                   onClick={() => {
-                    dispatch(toggleStatus(cont.id));
+                    dispatch(toggleStatus(user.id));
                   }}
-                  status={cont.status}
+                  status={user.status}
                 >
-                  {cont.status === 'no' ? 'offline' : 'online'}
+                  {user.status === 'no' ? 'offline' : 'online'}
                 </Status>
               </TableTd>
               <TableTd>
                 <ButtonDelete
                   onClick={() => {
-                    dispatch(deleteContact(cont.id));
+                    dispatch(deleteContact(user.id));
                   }}
                 >
                   Delete
@@ -60,5 +61,7 @@ export const Table = () => {
         })}
       </tbody>
     </TableStyled>
+  ) : (
+    <NoResults>Please, enter your contacts...</NoResults>
   );
 };

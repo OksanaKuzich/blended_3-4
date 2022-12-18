@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom';
-import { NavItem, NavList } from './Layout.styled';
+import { NavItem, NavList, Header } from './Layout.styled';
 
 export const Layout = () => {
   return (
     <>
-      <header>
+      <Header>
         <nav>
           <NavList>
             <li>
@@ -15,7 +15,7 @@ export const Layout = () => {
             </li>
           </NavList>
         </nav>
-      </header>
+      </Header>
       <main>
         <Outlet />
       </main>

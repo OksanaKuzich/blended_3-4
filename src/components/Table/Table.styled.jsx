@@ -29,3 +29,9 @@ export const ButtonDelete = styled.button`
 export const Status = styled.span`
   color: ${({ status }) => (status === 'no' ? 'red' : 'green')};
 `;
+
+export const NoResults = styled.div`
+font-size: 16px;
+font-style: italic;
+  padding: 20px 0 0 40px;
+`;
