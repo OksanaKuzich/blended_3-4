@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Api } from 'services/api';
 import { addContact } from 'redux/userSlice';
+import { FormStyle, FormLabel, FormInput, ButtonAdd } from './Form.styled';
 
 export const Form = () => {
   const [name, setName] = useState('');
@@ -24,26 +25,31 @@ export const Form = () => {
   };
 
   return (
-    <form onSubmit={onSubmitForm}>
-      <label>
+    <FormStyle onSubmit={onSubmitForm}>
+      <FormLabel>
         Name
-        <input
+        <FormInput
           value={name}
           type="text"
           name="name"
           onChange={onChangeHandler}
+          required
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         />
-      </label>
-      <label>
+      </FormLabel>
+      <FormLabel>
         Age
-        <input
+        <FormInput
           value={age}
           type="number"
           name="age"
           onChange={onChangeHandler}
+          required
+          min="0"
+          max="150"
         />
-      </label>
-      <button>Add contact</button>
-    </form>
+      </FormLabel>
+      <ButtonAdd>Add contact</ButtonAdd>
+    </FormStyle>
   );
 };
